@@ -15,6 +15,7 @@ interface User {
 export class UserComponent {
   @Input() user!: User;
   @Output() select = new EventEmitter();
+  @Input({ required: true }) selected!: boolean;
 
   get imagePath() {
     return '../assets/users/' + this.user.avatar;
