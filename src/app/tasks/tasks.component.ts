@@ -1,17 +1,20 @@
 import { NgFor } from '@angular/common';
 import { TaskComponent } from './task/task.component';
 import { Component, Input } from '@angular/core';
+import { NewTaskComponent } from './new-task/new-task.component';
+import { NewTaskData } from './task/task.model';
 //import {Tasks} from './dummy-tasks'
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [TaskComponent, NgFor],
+  imports: [TaskComponent, NgFor, NewTaskComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss',
 })
 export class TasksComponent {
   @Input({ required: true }) name!: string;
   @Input({ required: true }) id!: string;
+  isAddingTask = false;
 
   tasks = [
     {
@@ -38,7 +41,7 @@ export class TasksComponent {
       dueDate: '2024-06-15',
     },
     {
-      id: 't3',
+      id: 't4',
       userId: 'u2',
       title: 'Prepare issue template',
       summary:
@@ -46,7 +49,7 @@ export class TasksComponent {
       dueDate: '2024-06-15',
     },
     {
-      id: 't3',
+      id: 't5',
       userId: 'u2',
       title: 'Prepare issue template',
       summary:
@@ -61,5 +64,24 @@ export class TasksComponent {
 
   completedTask(id: string) {
     this.tasks = this.tasks.filter((task) => task.id !== id);
+  }
+
+  onAddTask() {
+    this.isAddingTask = true;
+  }
+
+  onCancel() {
+    this.isAddingTask = false;
+  }
+  onAddNewTask(taskData: NewTaskData) {
+    this.tasks.unshift({
+      id: new Date().getTime().toString(),
+      userId: this.id,
+      title: taskData.title,
+      summary: taskData.summary,
+      dueDate: taskData.date,
+    });
+
+    this.isAddingTask = false;
   }
 }
