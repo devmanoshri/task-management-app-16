@@ -18,7 +18,7 @@ export class UserComponent {
   @Input({ required: true }) selected!: boolean;
 
   get imagePath() {
-    return '../assets/users/' + this.user.avatar;
+    return '../../assets/users/' + this.user.avatar;
   }
   onSelectUser() {
     this.select.emit(this.user.id);

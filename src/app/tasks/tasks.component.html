@@ -1,5 +1,5 @@
 @if(isAddingTask){
-  <app-new-task (cancel)="onCancel()" (add)="onAddNewTask($event)"/>
+<app-new-task (cancel)="onCancel()" (add)="onAddTask()" />
 }
 <section id="tasks">
   <header>
@@ -9,10 +9,8 @@
     </menu>
   </header>
   <ul>
-
     <li *ngFor="let task of selectedUserTasks">
-      <app-task [task]="task" (complete)="completedTask($event)"/>
+      <app-task [task]="task" (complete)="completedTask($event)" />
     </li>
-
   </ul>
 </section>
